@@ -89,7 +89,7 @@ mostrarMensajes(personajes);
 
 function mostrarMensajes(listaMensajes) {
   for (const mensaje of listaMensajes) {
-    consola.log(personaje.getSerie);
+    console.log(mensaje.getSerie);
   }
 }
 
@@ -135,4 +135,10 @@ function resumen(listaPersonajes) {
       .sort((a, b) => a.edad - b.edad)
   });
   console.log(listaPersonajesFiltrada);
+}
+
+// Parte del DOM
+mostrarPantalla(personajes);
+function mostrarPantalla(personajes) {
+
 }
