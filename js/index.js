@@ -65,11 +65,11 @@ class Escudero extends Personaje {
   }
 }
 
-const joffrey = new Rey("Joffrey", "Baratheon", 44, 5);
+const joffrey = new Rey("Joffrey", "Baratheon", 18, 5);
 const jamie = new Luchador("Jamie", "Lannister", 35, "Espada", 6);
 const daenerys = new Luchador("Daenerys", "Targaryen", 22, "Dragones", 10);
 const tyrion = new Asesor("Tyrion", "Lannister", 30, daenerys);
-const bronn = new Escudero("Bronn", null, 23, jamie, 5);
+const bronn = new Escudero("Bronn", "", 23, jamie, 5);
 
 const personajes = [joffrey, jamie, daenerys, tyrion, bronn]
 
@@ -101,7 +101,7 @@ matar(personajes);
 resumen(personajes);
 function matar(personajes) {
   for (const personaje of personajes) {
-    if (personaje.nombre.toLowerCase() === "tyrion") {
+    if (personaje.nombre.toLowerCase() === "joffrey") {
       personaje.morir()
     } else if (personaje.nombre.toLowerCase() === "jamie") {
       personaje.morir()
@@ -138,7 +138,81 @@ function resumen(listaPersonajes) {
 }
 
 // Parte del DOM
+
+console.log(personajes);
 mostrarPantalla(personajes);
 function mostrarPantalla(personajes) {
+  const persons = document.querySelector(".personajes");
+  const dummy = document.querySelector(".personaje-dummy");
+  const foto = document.querySelector(".foto");
+  const nombre = document.querySelector(".nombre");
+  const emoji = document.querySelector(".emoji");
+  const edad = document.querySelector(".info > .metadata > li");
+  const vivo = document.querySelector(".vivo");
+  const muerto = document.querySelector(".muerto");
 
+  const reinado = document.querySelector(".reinado");
+  const arma = document.querySelector(".arma");
+  const destreza = document.querySelector(".destreza");
+  const pelota = document.querySelector(".pelota");
+  const asesoracion = document.querySelector(".asesoracion");
+  const servicion = document.querySelector(".servicion");
+
+  for (const personaje of personajes) {
+    const nuevoPersonaje = dummy.cloneNode(true);
+    const listPersons = document.createElement("span")
+    dummy.classList.remove("personaje-dummy");
+    foto.src = `img/${personaje.nombre.toLowerCase()}.jpg`;
+    foto.alt = `${personaje.nombre} ${personaje.familia}`;
+    nombre.textContent = `${personaje.nombre} ${personaje.familia}`;
+    edad.textContent = `Edad: ${personaje.edad} años`;
+
+    if (personaje.estado === "muerto") {
+      vivo.style.display = 'none';
+      muerto.style.display = 'block';
+      foto.setAttribute("estado", "muerto")
+    } else {
+      vivo.style.display = 'block';
+      muerto.style.display = 'none';
+      foto.setAttribute("estado", "vivo")
+    }
+
+    reinado.style.display = 'none';
+    arma.style.display = 'none';
+    destreza.style.display = 'none';
+    asesoracion.style.display = 'none';
+    pelota.style.display = 'none';
+    servicion.style.display = 'none';
+
+    if (personaje instanceof Rey) {
+      emoji.textContent = "👑";
+      reinado.textContent = `Años de reinado: ${personaje.añosReinado}`;
+      reinado.style.display = 'block';
+
+    } else if (personaje instanceof Luchador) {
+      emoji.textContent = "🗡";
+      arma.textContent = `Arma: ${personaje.armaUsada}`;
+      destreza.textContent = `Destreza: ${personaje.destreza}`
+      arma.style.display = 'block';
+      destreza.style.display = 'block';
+
+    } else if (personaje instanceof Asesor) {
+      emoji.textContent = "🎓";
+      asesoracion.textContent = `Asesora a: ${personaje.asesora.nombre}`;
+      asesoracion.style.display = 'block';
+
+    } else {
+      emoji.textContent = "🛡";
+      pelota.textContent = `Peloteo: ${personaje.pelotismo}`;
+      servicion.textContent = `Sirve a: ${personaje.sirve.nombre}`;
+      pelota.style.display = 'block';
+      servicion.style.display = 'block';
+
+    }
+
+    nuevoPersonaje.appendChild(listPersons);
+    persons.append(nuevoPersonaje);
+    console.log(nuevoPersonaje);
+    console.log(personaje);
+  }
 }
