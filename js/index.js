@@ -151,7 +151,6 @@ function mostrarPantalla(personajes) {
   const edad = document.querySelector(".info > .metadata > li");
   const vivo = document.querySelector(".vivo");
   const muerto = document.querySelector(".muerto");
-
   const reinado = document.querySelector(".reinado");
   const arma = document.querySelector(".arma");
   const destreza = document.querySelector(".destreza");
@@ -159,17 +158,9 @@ function mostrarPantalla(personajes) {
   const asesoracion = document.querySelector(".asesoracion");
   const servicion = document.querySelector(".servicion");
 
-
   for (const [i, personaje] of personajes.entries()) {
-
-
     setTimeout(() => {
-
-
-
-
       const nuevoPersonaje = dummy.cloneNode(true);
-      const listPersons = document.createElement("li")
       dummy.classList.remove("personaje-dummy");
       foto.src = `img/${personaje.nombre.toLowerCase()}.jpg`;
       foto.alt = `${personaje.nombre} ${personaje.familia}`;
@@ -185,7 +176,6 @@ function mostrarPantalla(personajes) {
         muerto.style.display = 'none';
         foto.setAttribute("estado", "vivo")
       }
-
       reinado.style.display = 'none';
       arma.style.display = 'none';
       destreza.style.display = 'none';
@@ -197,35 +187,24 @@ function mostrarPantalla(personajes) {
         emoji.textContent = "👑";
         reinado.textContent = `Años de reinado: ${personaje.añosReinado}`;
         reinado.style.display = 'block';
-
       } else if (personaje instanceof Luchador) {
         emoji.textContent = "🗡";
         arma.textContent = `Arma: ${personaje.armaUsada}`;
         destreza.textContent = `Destreza: ${personaje.destreza}`
         arma.style.display = 'block';
         destreza.style.display = 'block';
-
       } else if (personaje instanceof Asesor) {
         emoji.textContent = "🎓";
         asesoracion.textContent = `Asesora a: ${personaje.asesora.nombre}`;
         asesoracion.style.display = 'block';
-
       } else {
         emoji.textContent = "🛡";
         pelota.textContent = `Peloteo: ${personaje.pelotismo}`;
         servicion.textContent = `Sirve a: ${personaje.sirve.nombre}`;
         pelota.style.display = 'block';
         servicion.style.display = 'block';
-
       }
-
-      nuevoPersonaje.appendChild(listPersons);
       persons.append(nuevoPersonaje);
-
-      console.log(i)
-
     }, 1000 * (i + 1));
-
-
   }
 }
