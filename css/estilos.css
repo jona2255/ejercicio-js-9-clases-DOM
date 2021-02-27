@@ -99,3 +99,7 @@ img.card-img-top {
   right: 5px;
   top: 5px;
 }
+
+img[estado=muerto] {
+  transform: rotate(180deg);
+}
