@@ -138,8 +138,6 @@ function resumen(listaPersonajes) {
 }
 
 // Parte del DOM
-
-console.log(personajes);
 mostrarPantalla(personajes);
 
 function mostrarPantalla(personajes) {
@@ -192,15 +190,14 @@ function mostrarPantalla(personajes) {
       ulCaracteristicas.classList.add("metadata");
       ulCaracteristicas.classList.add("list-unstyled");
       divAcciones.classList.add("acciones");
+      botonHablar.id = "habla";
       botonHablar.classList.add("btn");
       botonHablar.classList.add("accion");
       botonHablar.textContent = "habla";
-      botonHablar.id = "hablar";
+      botonMorir.id = "muere";
       botonMorir.classList.add("btn");
       botonMorir.classList.add("accion");
       botonMorir.textContent = "muere";
-      botonMorir.id = "morir";
-
       nuevoPersonaje.appendChild(divPersonajeCard);
       divPersonajeCard.appendChild(foto);
       divPersonajeCard.appendChild(divCardBody);
@@ -243,7 +240,44 @@ function mostrarPantalla(personajes) {
         ulCaracteristicas.appendChild(pelota);
         ulCaracteristicas.appendChild(servicion);
       }
+
       persons.append(nuevoPersonaje);
     }, 1000 * (i + 1));
   }
 }
+document.body.addEventListener("click", (id) => {
+  if (id.target.id === "muere") {
+    console.log(id);
+    if (id.path[3].childNodes[0].innerText === "Joffrey Baratheon") {
+      personajes[0].morir()
+    } else if (id.path[3].childNodes[0].innerText === "Jamie Lannister") {
+      personajes[1].morir()
+    }
+    else if (id.path[3].childNodes[0].innerText === "Daenerys Targaryen") {
+      personajes[2].morir()
+    }
+    else if (id.path[3].childNodes[0].innerText === "Tyrion Lannister") {
+      personajes[3].morir()
+    } else {
+      personajes[4].morir()
+    }
+    const persons = document.querySelector(".personajes");
+    persons.remove()
+    const contenedor = document.querySelector(".container");
+
+    const ulPersonajes = document.createElement("ul");
+    ulPersonajes.classList.add("personajes");
+    ulPersonajes.classList.add("row");
+    ulPersonajes.classList.add("list-unstyled");
+
+    const liDummy = document.createElement("li");
+    liDummy.classList.add("personaje");
+    liDummy.classList.add("personaje-dummy");
+    liDummy.classList.add("col");
+
+    contenedor.appendChild(ulPersonajes);
+    ulPersonajes.appendChild(liDummy);
+    mostrarPantalla(personajes);
+
+  }
+});
