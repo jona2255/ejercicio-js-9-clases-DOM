@@ -141,6 +141,7 @@ function resumen(listaPersonajes) {
 
 console.log(personajes);
 mostrarPantalla(personajes);
+
 function mostrarPantalla(personajes) {
   const persons = document.querySelector(".personajes");
   const dummy = document.querySelector(".personaje-dummy");
@@ -158,61 +159,73 @@ function mostrarPantalla(personajes) {
   const asesoracion = document.querySelector(".asesoracion");
   const servicion = document.querySelector(".servicion");
 
-  for (const personaje of personajes) {
-    const nuevoPersonaje = dummy.cloneNode(true);
-    const listPersons = document.createElement("span")
-    dummy.classList.remove("personaje-dummy");
-    foto.src = `img/${personaje.nombre.toLowerCase()}.jpg`;
-    foto.alt = `${personaje.nombre} ${personaje.familia}`;
-    nombre.textContent = `${personaje.nombre} ${personaje.familia}`;
-    edad.textContent = `Edad: ${personaje.edad} años`;
 
-    if (personaje.estado === "muerto") {
-      vivo.style.display = 'none';
-      muerto.style.display = 'block';
-      foto.setAttribute("estado", "muerto")
-    } else {
-      vivo.style.display = 'block';
-      muerto.style.display = 'none';
-      foto.setAttribute("estado", "vivo")
-    }
+  for (const [i, personaje] of personajes.entries()) {
 
-    reinado.style.display = 'none';
-    arma.style.display = 'none';
-    destreza.style.display = 'none';
-    asesoracion.style.display = 'none';
-    pelota.style.display = 'none';
-    servicion.style.display = 'none';
 
-    if (personaje instanceof Rey) {
-      emoji.textContent = "👑";
-      reinado.textContent = `Años de reinado: ${personaje.añosReinado}`;
-      reinado.style.display = 'block';
+    setTimeout(() => {
 
-    } else if (personaje instanceof Luchador) {
-      emoji.textContent = "🗡";
-      arma.textContent = `Arma: ${personaje.armaUsada}`;
-      destreza.textContent = `Destreza: ${personaje.destreza}`
-      arma.style.display = 'block';
-      destreza.style.display = 'block';
 
-    } else if (personaje instanceof Asesor) {
-      emoji.textContent = "🎓";
-      asesoracion.textContent = `Asesora a: ${personaje.asesora.nombre}`;
-      asesoracion.style.display = 'block';
 
-    } else {
-      emoji.textContent = "🛡";
-      pelota.textContent = `Peloteo: ${personaje.pelotismo}`;
-      servicion.textContent = `Sirve a: ${personaje.sirve.nombre}`;
-      pelota.style.display = 'block';
-      servicion.style.display = 'block';
 
-    }
+      const nuevoPersonaje = dummy.cloneNode(true);
+      const listPersons = document.createElement("li")
+      dummy.classList.remove("personaje-dummy");
+      foto.src = `img/${personaje.nombre.toLowerCase()}.jpg`;
+      foto.alt = `${personaje.nombre} ${personaje.familia}`;
+      nombre.textContent = `${personaje.nombre} ${personaje.familia}`;
+      edad.textContent = `Edad: ${personaje.edad} años`;
 
-    nuevoPersonaje.appendChild(listPersons);
-    persons.append(nuevoPersonaje);
-    console.log(nuevoPersonaje);
-    console.log(personaje);
+      if (personaje.estado === "muerto") {
+        vivo.style.display = 'none';
+        muerto.style.display = 'block';
+        foto.setAttribute("estado", "muerto")
+      } else {
+        vivo.style.display = 'block';
+        muerto.style.display = 'none';
+        foto.setAttribute("estado", "vivo")
+      }
+
+      reinado.style.display = 'none';
+      arma.style.display = 'none';
+      destreza.style.display = 'none';
+      asesoracion.style.display = 'none';
+      pelota.style.display = 'none';
+      servicion.style.display = 'none';
+
+      if (personaje instanceof Rey) {
+        emoji.textContent = "👑";
+        reinado.textContent = `Años de reinado: ${personaje.añosReinado}`;
+        reinado.style.display = 'block';
+
+      } else if (personaje instanceof Luchador) {
+        emoji.textContent = "🗡";
+        arma.textContent = `Arma: ${personaje.armaUsada}`;
+        destreza.textContent = `Destreza: ${personaje.destreza}`
+        arma.style.display = 'block';
+        destreza.style.display = 'block';
+
+      } else if (personaje instanceof Asesor) {
+        emoji.textContent = "🎓";
+        asesoracion.textContent = `Asesora a: ${personaje.asesora.nombre}`;
+        asesoracion.style.display = 'block';
+
+      } else {
+        emoji.textContent = "🛡";
+        pelota.textContent = `Peloteo: ${personaje.pelotismo}`;
+        servicion.textContent = `Sirve a: ${personaje.sirve.nombre}`;
+        pelota.style.display = 'block';
+        servicion.style.display = 'block';
+
+      }
+
+      nuevoPersonaje.appendChild(listPersons);
+      persons.append(nuevoPersonaje);
+
+      console.log(i)
+
+    }, 1000 * (i + 1));
+
+
   }
 }
